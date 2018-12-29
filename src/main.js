@@ -5,6 +5,7 @@ import App from './App.vue'
 import Router from 'vue-router'
 import vueResource from 'vue-resource'
 import Home from './components/Home'
+import Products from './components/Products'
 
 Vue.use(Router)
 Vue.use(vueResource)
@@ -14,6 +15,18 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/:type',
+    name: 'products',
+    component: Products,
+    beforeEnter: (to, from, next) => {
+      if (to.params.type === 'games' || to.params.type === 'consoles') {
+        next()
+      } else {
+        next(false)
+      }
+    }
   }
 ]
 

@@ -3,40 +3,40 @@
     <!--Navbar-->
     <mdb-navbar class="indigo" dark>
       <!-- Navbar brand -->
-      <mdb-navbar-brand href="https://mdbootstrap.com/">
+      <mdb-navbar-brand href="/">
         Video Game Critic
       </mdb-navbar-brand>
       <mdb-navbar-toggler>
         <mdb-navbar-nav>
-          <mdb-nav-item href="#">Home</mdb-nav-item>
+          <mdb-nav-item href="#" clearfix><router-link to="/" tag="a">Home</router-link></mdb-nav-item>
           <mdb-dropdown tag="li" class="nav-item">
             <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Games</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
-              <mdb-dropdown-item>All</mdb-dropdown-item>
+              <mdb-dropdown-item><router-link to="/games">All</router-link></mdb-dropdown-item>
               <mdb-dropdown-item
                 v-for="platform in platforms"
                 :key="platform.id"
               >
-                {{platform.name}}
+                <router-link v-bind:to="{ path: '/games', query: {platform: platform.id}}">{{platform.name}}</router-link>
               </mdb-dropdown-item>
             </mdb-dropdown-menu>
           </mdb-dropdown>
           <mdb-dropdown tag="li" class="nav-item">
             <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Consoles</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
-              <mdb-dropdown-item>All</mdb-dropdown-item>
+              <mdb-dropdown-item><router-link to="/consoles">All</router-link></mdb-dropdown-item>
               <mdb-dropdown-item
                 v-for="platform in platforms"
                 :key="platform.id"
               >
-                {{platform.name}}
+                <router-link v-bind:to="{ path: '/consoles', query: {platform: platform.id}}">{{platform.name}}</router-link>
               </mdb-dropdown-item>
             </mdb-dropdown-menu>
           </mdb-dropdown>
         </mdb-navbar-nav>
       </mdb-navbar-toggler>
     </mdb-navbar>
-    <router-view/>
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
@@ -76,5 +76,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+a a {
+  color: white;
+  display: block;
+  padding-bottom: 0.3em;
+}
 </style>
