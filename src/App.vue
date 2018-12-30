@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <!--Navbar-->
-    <mdb-navbar class="indigo" dark>
-      <!-- Navbar brand -->
+    <mdb-navbar class="navbar-dark mdb-color darken-1 sticky-top" dark>
       <mdb-navbar-brand href="/">
         Video Game Critic
       </mdb-navbar-brand>
@@ -10,7 +8,7 @@
         <mdb-navbar-nav>
           <mdb-nav-item href="#" clearfix><router-link to="/" tag="a">Home</router-link></mdb-nav-item>
           <mdb-dropdown tag="li" class="nav-item">
-            <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Games</mdb-dropdown-toggle>
+            <mdb-dropdown-toggle tag="a" navLink color="mdb-color-darken-1" slot="toggle" waves-fixed>Games</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
               <mdb-dropdown-item><router-link to="/games">All</router-link></mdb-dropdown-item>
               <mdb-dropdown-item
@@ -22,7 +20,7 @@
             </mdb-dropdown-menu>
           </mdb-dropdown>
           <mdb-dropdown tag="li" class="nav-item">
-            <mdb-dropdown-toggle tag="a" navLink color="indigo" slot="toggle" waves-fixed>Consoles</mdb-dropdown-toggle>
+            <mdb-dropdown-toggle tag="a" navLink color="mdb-color-darken-1" slot="toggle" waves-fixed>Consoles</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
               <mdb-dropdown-item><router-link to="/consoles">All</router-link></mdb-dropdown-item>
               <mdb-dropdown-item
