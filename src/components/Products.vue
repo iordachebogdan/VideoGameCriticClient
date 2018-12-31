@@ -25,7 +25,7 @@
         <mdb-card-body class="product-body">
           <mdb-card-title class="card-title-fnt">{{product.name}}</mdb-card-title>
           <i class="fa fa-star-o" aria-hidden="true">{{product.avgRating}}</i>
-          <mdb-btn color="purple darken-2" class="product-button">More</mdb-btn>
+          <mdb-btn color="purple darken-2" class="product-button" @click="goTo(product.id)">More</mdb-btn>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -103,6 +103,9 @@ export default {
       return list.filter(function (product) {
         return product.name.toLowerCase().indexOf(value.toLowerCase()) > -1
       })
+    },
+    goTo (id) {
+      this.$router.push({ path: `/${this.$route.params.type}/${id}` })
     }
   },
   created: function () {
@@ -166,11 +169,6 @@ export default {
   height: 21em;
 }
 
-.product-image {
-  height: 12em;
-  width:  100%;
-}
-
 .product-button {
   position: absolute;
   bottom: 1em;
@@ -203,5 +201,10 @@ export default {
 <style scoped>
 .card-title-fnt {
   font-size: 1.2em;
+}
+
+.product-image {
+  height: 12em;
+  width:  100%;
 }
 </style>
