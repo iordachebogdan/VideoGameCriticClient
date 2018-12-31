@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div class="overlay"></div>
-
     <mdb-container v-if="isGame" class="category-filter">
       <mdb-collapse :toggleText="['Filter by category']" :toggleClass="['btn btn-purple']">
         <div class="category-container">
@@ -17,8 +15,12 @@
       </mdb-collapse>
     </mdb-container>
 
+    <mdb-container>
+      <mdb-input label="Type to search" type="text" class="search-bar" v-model="filterInput" />
+    </mdb-container>
+
     <div class="products-container">
-      <mdb-card class="d-inline-block card-container" color="grey darken-2" v-for="product in productCollection" :key="product.id">
+      <mdb-card class="d-inline-block card-container" color="grey darken-2" v-for="product in filterBy(productCollection, filterInput)" :key="product.id">
         <mdb-card-image v-bind:src="product.image" class="product-image" waves></mdb-card-image>
         <mdb-card-body class="product-body">
           <mdb-card-title class="card-title-fnt">{{product.name}}</mdb-card-title>
@@ -31,7 +33,8 @@
 </template>
 
 <script>
-import { mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn, mdbCollapse, mdbContainer } from 'mdbvue'
+import { mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn,
+  mdbCollapse, mdbContainer, mdbInput } from 'mdbvue'
 
 export default {
   name: 'products',
@@ -43,14 +46,16 @@ export default {
     mdbCardText,
     mdbBtn,
     mdbCollapse,
-    mdbContainer
+    mdbContainer,
+    mdbInput
   },
   data () {
     return {
       products: [],
       categories: [],
       activeCategories: [],
-      isGame: false
+      isGame: false,
+      filterInput: ''
     }
   },
   methods: {
@@ -93,6 +98,11 @@ export default {
       }
       let mean = sum * 1.0 / product.comments.length
       return (sum === 0 ? 0 : Math.round(mean * 10) / 10)
+    },
+    filterBy (list, value) {
+      return list.filter(function (product) {
+        return product.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+      })
     }
   },
   created: function () {
@@ -171,23 +181,6 @@ export default {
   font-size: 10px;
 }
 
-.overlay {
-  position:fixed;
-  background:url('/static/footer_lodyas.png');
-  animation:100s scroll infinite linear;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index: -1;
-}
-
-@keyframes scroll {
-  100%{
-    background-position:0px -3000px;
-  }
-}
-
 .category-filter {
   margin-left: 0;
   margin-top: 1em;
@@ -200,6 +193,10 @@ export default {
   font-size: 1.2em;
   border-radius: 10px;
   padding: 0.5em;
+}
+
+.form-control:focus {
+  color: white;
 }
 </style>
 

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="overlay"></div>
     <mdb-navbar class="navbar-dark mdb-color darken-1 sticky-top" dark>
       <mdb-navbar-brand href="/">
         Video Game Critic
@@ -32,6 +33,8 @@
             </mdb-dropdown-menu>
           </mdb-dropdown>
         </mdb-navbar-nav>
+
+        <mdb-btn color="success" class="add-button">Add product</mdb-btn>
       </mdb-navbar-toggler>
     </mdb-navbar>
     <router-view :key="$route.fullPath"/>
@@ -40,7 +43,8 @@
 
 <script>
 import {mdbNavbar, mdbNavbarBrand, mdbNavItem, mdbDropdown, mdbDropdownToggle,
-  mdbDropdownMenu, mdbDropdownItem, mdbNavbarNav, mdbNavbarToggler} from 'mdbvue'
+  mdbDropdownMenu, mdbDropdownItem, mdbNavbarNav, mdbNavbarToggler, mdbBtn,
+  mdbBtnGroup, mdbIcon} from 'mdbvue'
 
 export default {
   name: 'App',
@@ -53,7 +57,10 @@ export default {
     mdbDropdownMenu,
     mdbDropdownItem,
     mdbNavbarNav,
-    mdbNavbarToggler
+    mdbNavbarToggler,
+    mdbBtn,
+    mdbBtnGroup,
+    mdbIcon
   },
   data () {
     return {
@@ -79,5 +86,26 @@ a a {
   color: white;
   display: block;
   padding-bottom: 0.3em;
+}
+
+.overlay {
+  position:fixed;
+  background:url('/static/footer_lodyas.png');
+  animation:100s scroll infinite linear;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index: -1;
+}
+
+@keyframes scroll {
+  100%{
+    background-position:0px -3000px;
+  }
+}
+
+.add-button {
+  padding: 0.9em;
 }
 </style>
