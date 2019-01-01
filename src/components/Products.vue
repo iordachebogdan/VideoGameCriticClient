@@ -204,7 +204,8 @@ export default {
 }
 
 .product-image {
-  height: 12em;
+  height: 13em;
   width:  100%;
+  margin-top: 0;
 }
 </style>

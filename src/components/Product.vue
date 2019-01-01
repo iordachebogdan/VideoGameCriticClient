@@ -1,7 +1,7 @@
 <template>
   <mdb-container>
     <mdb-row>
-      <mdb-card class="product-card" color="grey darken-2">
+      <mdb-card class="product-card" color="elegant-color">
         <mdb-card-image v-bind:src="image" class="product-image" waves></mdb-card-image>
         <mdb-card-body class="text-center" cascade>
           <mdb-card-title class="product-name"><strong>{{product.name}}</strong></mdb-card-title>
