@@ -35,7 +35,6 @@ export default new Router({
         } else {
           next(false)
         }
-        console.log('hello')
       }
     }
   ],

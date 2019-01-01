@@ -2,6 +2,10 @@
   <mdb-container>
     <mdb-row>
       <mdb-card class="product-card" color="elegant-color">
+        <mdb-card-body class="operation-container">
+          <mdb-btn color="danger" class="operation">Delete</mdb-btn>
+          <mdb-btn color="info" class="operation">Edit</mdb-btn>
+        </mdb-card-body>
         <mdb-card-image v-bind:src="image" class="product-image" waves></mdb-card-image>
         <mdb-card-body class="text-center" cascade>
           <mdb-card-title class="product-name"><strong>{{product.name}}</strong></mdb-card-title>
@@ -19,12 +23,32 @@
         </mdb-card-body>
       </mdb-card>
     </mdb-row>
+
+    <mdb-row>
+      <mdb-card class="comment-form" color="elegant-color">
+        <mdb-card-title>
+          Add a comment
+          <mdb-btn class="operation">Add</mdb-btn>
+        </mdb-card-title>
+        <mdb-card-body>
+          <label for="userNameForm" class="grey-text">Your name</label>
+          <input type="text" id="userNameForm" class="form-control">
+          <br>
+          <label for="commentForm" class="grey-text">Your comment</label>
+          <textarea type="text" id="commentForm" class="form-control" rows="3"></textarea>
+          <br>
+          <label class="grey-text">Your rating</label>
+          <star-rating v-model="rating" :star-size="40"></star-rating>
+        </mdb-card-body>
+      </mdb-card>
+    </mdb-row>
   </mdb-container>
 </template>
 
 <script>
 import { mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText,
-  mdbContainer, mdbRow, mdbView, mdbMask } from 'mdbvue'
+  mdbContainer, mdbRow, mdbView, mdbMask, mdbBtn } from 'mdbvue'
+import StarRating from 'vue-star-rating'
 
 export default {
   name: 'product',
@@ -37,14 +61,17 @@ export default {
     mdbContainer,
     mdbRow,
     mdbView,
-    mdbMask
+    mdbMask,
+    mdbBtn,
+    StarRating
   },
   data () {
     return {
       product: {
         category: {},
         platform: {}
-      }
+      },
+      rating: 1
     }
   },
   computed: {
@@ -60,7 +87,6 @@ export default {
         .then(function (response) {
           this.product = response.body.data
           this.product.avgRating = this.getAvgRating(this.product)
-          console.log(this.product)
         })
     },
     getAvgRating (product) {
@@ -89,7 +115,6 @@ export default {
 .product-image {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1.5em;
 }
 
 .product-meta {
@@ -114,6 +139,24 @@ export default {
   text-align: left;
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.operation {
+  width: 5em;
+  padding:  0.2em;
+  float: right;
+}
+
+.operation-container {
+  padding: 0;
+}
+
+.comment-form {
+  margin-bottom: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  padding: 0.5em;
 }
 </style>
 
