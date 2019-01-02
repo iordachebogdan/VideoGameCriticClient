@@ -1,5 +1,7 @@
 <template>
   <div>
+    <alert v-if="alertMessage" :message="alertMessage" :color="alertColor"/>
+
     <mdb-container v-if="isGame" class="category-filter">
       <mdb-collapse :toggleText="['Filter by category']" :toggleClass="['btn btn-purple']">
         <div class="category-container">
@@ -35,6 +37,7 @@
 <script>
 import { mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText, mdbBtn,
   mdbCollapse, mdbContainer, mdbInput } from 'mdbvue'
+import alert from './Alert'
 
 export default {
   name: 'products',
@@ -47,7 +50,8 @@ export default {
     mdbBtn,
     mdbCollapse,
     mdbContainer,
-    mdbInput
+    mdbInput,
+    alert
   },
   data () {
     return {
@@ -55,7 +59,9 @@ export default {
       categories: [],
       activeCategories: [],
       isGame: false,
-      filterInput: ''
+      filterInput: '',
+      alertMessage: '',
+      alertColor: ''
     }
   },
   methods: {
@@ -83,12 +89,22 @@ export default {
       this.$http.get(this.urlBuilder())
         .then(function (response) {
           this.products = response.body.data
+        }, function (response) {
+          this.alertMessage = (response.body.message
+            ? response.body.message
+            : response.status + ' ' + response.statusText)
+          this.alertColor = 'danger'
         })
     },
     fetchCategories () {
       this.$http.get('http://localhost:3000/api/categories')
         .then(function (response) {
           this.categories = response.body.data
+        }, function (response) {
+          this.alertMessage = (response.body.message
+            ? response.body.message
+            : response.status + ' ' + response.statusText)
+          this.alertColor = 'danger'
         })
     },
     getAvgRating (product) {
@@ -109,6 +125,10 @@ export default {
     }
   },
   created: function () {
+    if (this.$route.query.alert_message && this.$route.query.alert_color) {
+      this.alertMessage = this.$route.query.alert_message
+      this.alertColor = this.$route.query.alert_color
+    }
     this.fetchProducts()
     this.fetchCategories()
     if (this.$route.params.type === 'games') {

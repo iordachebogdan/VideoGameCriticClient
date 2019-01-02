@@ -1,5 +1,7 @@
 <template>
   <mdb-container>
+    <alert v-if="alertMessage" :message="alertMessage" :color="alertColor"/>
+
     <mdb-row>
       <mdb-card class="product-card" color="elegant-color">
         <mdb-card-body class="operation-container">
@@ -106,6 +108,7 @@ import { mdbCard, mdbCardImage, mdbCardBody, mdbCardTitle, mdbCardText,
   mdbModalTitle, mdbModalBody, mdbModalFooter } from 'mdbvue'
 import StarRating from 'vue-star-rating'
 import VueScrollTo from 'vue-scrollto'
+import alert from './Alert'
 
 export default {
   name: 'product',
@@ -126,7 +129,8 @@ export default {
     mdbModalHeader,
     mdbModalTitle,
     mdbModalBody,
-    mdbModalFooter
+    mdbModalFooter,
+    alert
   },
   data () {
     return {
@@ -141,7 +145,9 @@ export default {
         rating: 1
       },
       isEditing: -1,
-      modal: false
+      modal: false,
+      alertMessage: '',
+      alertColor: ''
     }
   },
   computed: {
@@ -164,6 +170,11 @@ export default {
       this.$http.get(`http://localhost:3000/api/${this.$route.params.type}/${this.$route.params.id}`)
         .then(function (response) {
           this.product = response.body.data
+        }, function (response) {
+          this.alertMessage = (response.body.message
+            ? response.body.message
+            : response.status + ' ' + response.statusText)
+          this.alertColor = 'danger'
         })
     },
     addComment () {
@@ -234,6 +245,10 @@ export default {
     }
   },
   created: function () {
+    if (this.$route.query.alert_message && this.$route.query.alert_color) {
+      this.alertMessage = this.$route.query.alert_message
+      this.alertColor = this.$route.query.alert_color
+    }
     this.fetchProduct()
   }
 }
