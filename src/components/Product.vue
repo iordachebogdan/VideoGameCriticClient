@@ -6,7 +6,7 @@
       <mdb-card class="product-card" color="elegant-color">
         <mdb-card-body class="operation-container">
           <mdb-btn color="danger" class="operation" @click.native="modal = true">Delete</mdb-btn>
-          <mdb-btn color="info" class="operation">Edit</mdb-btn>
+          <mdb-btn color="info" class="operation" @click.native="editProduct">Edit</mdb-btn>
         </mdb-card-body>
         <mdb-card-image v-bind:src="image" class="product-image" waves></mdb-card-image>
         <mdb-card-body class="text-center" cascade>
@@ -251,6 +251,12 @@ export default {
           this.alertMessage = `Could not delete this`
           this.alertColor = 'danger'
         })
+    },
+    editProduct () {
+      let type = this.$route.params.type.slice(0, -1)
+      this.$router.push({
+        path: `/edit/${type}/${this.$route.params.id}`
+      })
     }
   },
   created: function () {

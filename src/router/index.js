@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Products from '@/components/Products'
 import Product from '@/components/Product'
 import Add from '@/components/Add'
+import Edit from '@/components/Edit'
 
 Vue.use(Router)
 
@@ -18,6 +19,18 @@ export default new Router({
       path: '/add',
       name: 'add',
       component: Add
+    },
+    {
+      path: '/edit/:type/:id',
+      name: 'edit',
+      component: Edit,
+      beforeEnter: (to, from, next) => {
+        if (to.params.type === 'game' || to.params.type === 'console') {
+          next()
+        } else {
+          next(false)
+        }
+      }
     },
     {
       path: '/:type',
