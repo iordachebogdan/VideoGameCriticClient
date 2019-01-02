@@ -1,4 +1,4 @@
-# video_game_critic_client
+# VideoGameCriticClient
 
 > Front end for VideoGameCritic REST-ful API
 
