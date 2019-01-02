@@ -240,7 +240,16 @@ export default {
     deleteProduct () {
       this.$http.delete(`http://localhost:3000/api/${this.$route.params.type}/${this.$route.params.id}`)
         .then(function (response) {
-          this.$router.push({ path: `/${this.$route.params.type}` })
+          this.$router.push({
+            path: `/${this.$route.params.type}`,
+            query: {
+              alert_message: `Successfully deleted`,
+              alert_color: 'success'
+            }
+          })
+        }, function (response) {
+          this.alertMessage = `Could not delete this`
+          this.alertColor = 'danger'
         })
     }
   },
@@ -310,7 +319,7 @@ export default {
   color: black;
 }
 
-.comment-text {
+.comment-text, .product-description {
   white-space: pre-line;
 }
 

@@ -34,7 +34,7 @@
           </mdb-dropdown>
         </mdb-navbar-nav>
 
-        <mdb-btn color="success" class="add-button">Add product</mdb-btn>
+        <mdb-btn color="success" class="add-button" @click.native="goToAdd">Add product</mdb-btn>
       </mdb-navbar-toggler>
     </mdb-navbar>
     <router-view :key="$route.fullPath"/>
@@ -73,6 +73,9 @@ export default {
         .then(function (response) {
           this.platforms = response.body.data
         })
+    },
+    goToAdd () {
+      this.$router.push({ path: '/add' })
     }
   },
   created: function () {
